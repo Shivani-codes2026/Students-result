@@ -44,9 +44,108 @@ input, button{padding:10px; width:90%; margin:5px}
 <input type="text" id="roll" placeholder="Enter your roll nu.">
 <button onclick="checkResult()">Search</button>
 <div id="result"></div>
+</div>*////
+
+  
+
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BIHAR RESULTS - P.G.H.S Kasar</title>
+<style>
+*{margin:0; padding:0; box-sizing:border-box; font-family:'Segoe UI', sans-serif;}
+body{background:linear-gradient(135deg, #e0f2ff, #f5e6ff); min-height:100vh;}
+
+.header{
+  background: linear-gradient(90deg, #0000ff, #7b00ff);
+  color:white; text-align:center; padding:25px 15px;
+  box-shadow:0 5px 15px rgba(0,0,0,0.2);
+  position:sticky; top:0; z-index:10;
+}
+.header h1{font-size:26px; letter-spacing:1px;}
+.header p{font-size:14px; margin-top:5px; opacity:0.95;}
+
+.main{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:25px;
+  padding:30px 15px;
+}
+
+.card{
+  background:white;
+  width:100%;
+  max-width:420px;
+  padding:25px;
+  border-radius:20px;
+  box-shadow:0 10px 30px rgba(0,0,0,0.12);
+  transition:0.3s;
+}
+.card:hover{transform:translateY(-5px); box-shadow:0 15px 40px rgba(0,0,0,0.18);}
+.card h2{ text-align:center; margin-bottom:5px; color:#0000ff; }
+.card.sub{ text-align:center; font-size:13px; color:#666; margin-bottom:18px; }
+.card input{
+  width:100%; padding:13px; border:2px solid #ddd; border-radius:10px; outline:none; font-size:15px;
+}
+.card input:focus{border-color:#0000ff;}
+.card button{
+  width:100%; margin-top:12px; padding:13px; background:linear-gradient(90deg, #0000ff, #7b00ff);
+  color:white; border:none; border-radius:10px; font-size:16px; font-weight:bold; cursor:pointer;
+}
+.output{
+  margin-top:15px; background:#f8faff; padding:15px; border-radius:12px; border:1px dashed #a0a0ff; display:none;
+}
+.output p{font-size:14px; margin:5px 0;}
+.pass{color:green; font-weight:bold; font-size:18px; text-align:center; margin-top:10px;}
+.fail{color:red; font-weight:bold; font-size:18px; text-align:center; margin-top:10px;}
+
+/* Footer scrolling */
+.footer{ background:white; padding:14px 0; overflow:hidden; white-space:nowrap; border-top:2px solid #ddd; }
+.track{ display:flex; width:max-content; animation: scroll 25s linear infinite; }
+.track img{ width:160px; height:100px; object-fit:cover; margin:0 10px; border-radius:12px; }
+@keyframes scroll{ 0%{transform:translateX(0);} 100%{transform:translateX(-50%);} }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>BIHAR ~ RESULTS</h1>
+  <p>Project Girls High School Kasar - अर्धवार्षिक परीक्षा 2026</p>
 </div>
 
-<script>
+<div class="main">
+
+  <!-- BOX 1 : 9th Class -->
+  <div class="card">
+    <h2>📘 Class 9th Result</h2>
+    <p class="sub">Apna Roll No. likho</p>
+    <input type="text" id="roll1" placeholder="Ex: 901, 902...">
+    <button onclick="checkResult('roll1', 'out1', data9th)">Search Result</button>
+    <div id="out1" class="output"></div>
+  </div>
+
+  <!-- BOX 2 : 10th Class / Dusra Data -->
+  <div class="card" style="border-top:4px solid #ff00a0;">
+    <h2 style="color:#ff00a0;">📕 Class 10th Result</h2>
+    <p class="sub">Apna Roll No. likho</p>
+    <input type="text" id="roll2" placeholder="Ex: 1001, 1002...">
+    <button onclick="checkResult('roll2', 'out2', data10th)" style="background:linear-gradient(90deg, #ff006a, #ff00a0);">Search Result</button>
+    <div id="out2" class="output"></div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <div class="track">
+    <img src="sch1.jpg"><img src="sch1.jpg"><img src="sch1.jpg"><img src="sch1.jpg">
+    <img src="sch1.jpg"><img src="sch1.jpg"><img src="sch1.jpg"><img src="sch1.jpg">
+  </div>
+</div>
+ <script>
 // Yahan apna data daal sakte ho
 const data = {
   "1": {name: "Khushbu Kumari", marks: "95", result: "Outstanding! - Aapne to kamaal kar diya! 😊🎉🌟"},
@@ -176,26 +275,41 @@ const data = {
   "125": {name: "Bharti Kumari", marks: "30", result: "Try Again - Himmat mat haro, agle baar ho jayega!"},
   "126": {name: "Neetu Kumari", marks: "30", result: "Try Again - Himmat mat haro, agle baar ho jayega!"},
 };
-  function checkResult(){
-  let r = document.getElementById("roll").value;
-  if(data[r]){
-    document.getElementById("result").innerHTML =
-    `<hr><b>Name:</b> ${data[r].name}<br><b>Marks:</b> ${data[r].marks}<br><b>Status:</b> ${data[r].result}`;
+
+  
+// YAHAN BOX 2 KA DATA DALO - DUSRA DATA
+const data10th = {
+  "1001": { name: "Pooja Kumari", father: "Sunil Kumar", total: 445, result: "PASS" },
+  "1002": { name: "Sneha Gupta", father: "Rajesh Gupta", total: 398, result: "PASS" },
+};
+
+
+// COMMON FUNCTION - DONO BOX KE LIYE KAAM KAREGA
+function checkResult(inputId, outputId, database){
+  let roll = document.getElementById(inputId).value.trim();
+  let out = document.getElementById(outputId);
+
+  if(roll==""){ alert("Roll No. likho!"); return; }
+
+  if(database[roll]){
+    let s = database[roll];
+    out.style.display="block";
+    out.innerHTML = `
+      <p><b>Name:</b> ${s.name}</p>
+      <p><b>Father:</b> ${s.father}</p>
+      <p><b>Total Marks:</b> ${s.total}</p>
+      <div class="${s.result=='PASS'?'pass':'fail'}">${s.result}</div>
+    `;
   } else {
-    document.getElementById("result").innerHTML = "Result Not Found!";
+    out.style.display="block";
+    out.innerHTML = `<p style="color:red; text-align:center;">Roll No. ${roll} nahi mila!</p>`;
   }
 }
 </script>
-<div class="footer">
-  <div class="scroll-track">
-  <img src="sch1.jpg>
-      <img src="sch2.jpg>
-    <img src="sch3.jpg>
-       <img src="sch1.jpg>
-    <img src="sch2.jpg>
-        <img src="sch3.jpg>
-</div>
-</div>
-  
+
 </body>
 </html>
+
+
+
+  
