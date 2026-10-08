@@ -72,7 +72,7 @@ body{background:linear-gradient(135deg, #e0f2ff, #f5e6ff); min-height:100vh;}
   <div class="card">
     <h2>📘 Class 9th Result</h2>
     <p class="sub">Enter your roll number</p>
-    <input type="text" id="roll1" placeholder=" ">
+    <input type="text" id="roll1" placeholder=" 1, 2, 3, .......">
     <button onclick="checkResult('roll1', 'out1', data9th)">Search Result</button>
     <div id="out1" class="output"></div>
   </div>
@@ -81,16 +81,16 @@ body{background:linear-gradient(135deg, #e0f2ff, #f5e6ff); min-height:100vh;}
   <div class="card" style="border-top:4px solid #ff00a0;">
     <h2 style="color:#ff00a0;">📕 Class 10th Result</h2>
     <p class="sub">Enter your roll number</p>
-    <input type="text" id="roll2" placeholder=" ">
+    <input type="text" id="roll2" placeholder="1, 2, 3, .....">
     <button onclick="checkResult('roll2', 'out2', data10th)" style="background:linear-gradient(90deg, #ff006a, #ff00a0);">Search Result</button>
     <div id="out2" class="output"></div>
   </div>
 
     <!-- BOX 3  : 11th Class / Dusra Data -->
-  <div class="card" style="border-top:4px solid #ff00a0;">
-    <h2 style="color:#ff00a0;">📕 Class 11th Result</h2>
+  <div class="card" style="border-top:4px solid #0000ff;">
+    <h2 style="color:#0000ff;">📕 Class 11th Result</h2>
     <p class="sub">Enter your roll number</p>
-    <input type="text" id="roll3" placeholder=" ">
+    <input type="text" id="roll3" placeholder="1, 2, 3, ....">
     <button onclick="checkResult('roll3', 'out3', data11th)" style="background:linear-gradient(90deg, #ff006a, #ff00a0);">Search Result</button>
     <div id="out3" class="output"></div>
   </div>
@@ -99,7 +99,7 @@ body{background:linear-gradient(135deg, #e0f2ff, #f5e6ff); min-height:100vh;}
   <div class="card" style="border-top:4px solid #ff00a0;">
     <h2 style="color:#ff00a0;">📕 Class 12h Result</h2>
     <p class="sub">Enter your roll number </p>
-    <input type="text" id="roll4" placeholder="  ">
+    <input type="text" id="roll4" placeholder="  1, 2, 3, .....">
     <button onclick="checkResult('roll4', 'out4', data12th)" style="background:linear-gradient(90deg, #ff006a, #ff00a0);">Search Result</button>
     <div id="out4" class="output"></div>
   </div>
@@ -112,6 +112,7 @@ body{background:linear-gradient(135deg, #e0f2ff, #f5e6ff); min-height:100vh;}
     <img src="sch1.jpg"><img src="sch1.jpg"><img src="sch1.jpg"><img src="sch1.jpg">
   </div>
 </div>
+ <marquee> All Right Reserved </marquee>
  <script>
 // Yahan apna data daal sakte ho
 const data9th = {
@@ -246,8 +247,8 @@ const data9th = {
   
 // YAHAN BOX 2 KA DATA DALO - DUSRA DATA
 const data10th = {
-  "1001": { name: "Pooja Kumari", father: "Sunil Kumar", total: 445, result: "PASS" },
-  "1002": { name: "Sneha Gupta", father: "Rajesh Gupta", total: 398, result: "PASS" },
+  "1": { name: "Pooja Kumari", father: "Sunil Kumar", total: 445, result: "PASS" },
+  "2": { name: "Sneha Gupta", father: "Rajesh Gupta", total: 398, result: "PASS" },
 };
 
 
@@ -263,8 +264,7 @@ function checkResult(inputId, outputId, database){
     out.style.display="block";
     out.innerHTML = `
       <p><b>Name:</b> ${s.name}</p>
-      <p><b>Father:</b> ${s.father}</p>
-      <p><b>Total Marks:</b> ${s.total}</p>
+      <p><b>Total Marks:</b> ${s.marks}</p>
       <div class="${s.result=='PASS'?'pass':'fail'}">${s.result}</div>
     `;
   } else {
